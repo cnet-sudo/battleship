@@ -15,23 +15,43 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v3
 
-    - name: Install SFML 2.6.0
+    # Клонируем SFML ВНЕ проекта
+    - name: Download SFML 2.6.0
       run: |
-        git clone https://github.com/SFML/SFML.git --branch 2.6.0 --depth 1
-        cmake -S SFML -B SFML/build -A x64 -DCMAKE_BUILD_TYPE=Release
-        cmake --build SFML/build --config Release
-        cmake --install SFML/build --config Release --prefix "C:/SFML"
+        git clone https://github.com/SFML/SFML.git --branch 2.6.0 --depth 1 C:/_sfml
 
+    # Собираем SFML
+    - name: Build SFML
+      run: |
+        cmake -S C:/_sfml -B C:/_sfml/build -A x64 -DCMAKE_BUILD_TYPE=Release
+        cmake --build C:/_sfml/build --config Release
+        cmake --install C:/_sfml/build --config Release --prefix "C:/SFML"
+
+    # Конфигурация твоего проекта
     - name: Configure CMake
       run: |
         cmake -S . -B build -A x64 -DCMAKE_PREFIX_PATH="C:/SFML"
 
+    # Сборка твоего проекта
     - name: Build
       run: |
         cmake --build build --config Release
 
-    - name: Upload EXE artifact
+    # Копируем SFML DLL в папку с exe
+    - name: Copy SFML DLLs
+      run: |
+        copy C:\SFML\bin\*.dll build\Release\
+
+    # Загружаем артефакт (exe + dll + ресурсы)
+    - name: Upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: BattleshipGame
-        path: build/Release/*.exe
+        path: |
+          build/Release/*.exe
+          build/Release/*.dll
+          build/Release/*.png
+          build/Release/*.jpg
+          build/Release/*.ttf
+          build/Release/*.wav
+          build/Release/*.json
