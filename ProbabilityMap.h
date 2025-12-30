@@ -5,23 +5,23 @@
 #include "ShotsGrid.h"
 #include "GameConfig.h"
 
-/**
- * ProbabilityMap
- *
- * Строит карту вероятностей для выбора следующего выстрела ИИ.
- * Учитывает:
- *  - промахи (Miss)
- *  - попадания (Hit)
- *  - затопленные корабли (Sunk)
- *  - размеры оставшихся кораблей
+/*
+ProbabilityMap
+
+ Строит карту вероятностей для выбора следующего выстрела ИИ.
+ Учитывает:
+ - промахи (Miss)
+ - попадания (Hit)
+ - затопленные корабли (Sunk)
+ - размеры оставшихся кораблей
  */
 class ProbabilityMap {
 public:
     // Карта вероятностей
     std::array<std::array<int, BOARD_SIZE>, BOARD_SIZE> map{};
 
-    /**
-     * Пересчитывает карту вероятностей.
+    /*
+     Пересчитывает карту вероятностей.
      */
     void compute(
         const Board& board,
@@ -29,9 +29,9 @@ public:
     ) noexcept;
 
 private:
-    /**
-     * Проверяет, можно ли разместить корабль длины length
-     * начиная с (x, y) в направлении horizontal.
+    /*
+     Проверяет, можно ли разместить корабль длины length
+     начиная с (x, y) в направлении horizontal.
      */
     bool canPlace(
         const Board& board,

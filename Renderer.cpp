@@ -2,6 +2,7 @@
 
 Renderer::Renderer(sf::RenderWindow& window) noexcept
     : window_(window) {
+    // Сохраняем ссылку на окно для дальнейшего рендера
 }
 
 void Renderer::drawBoard(const Board& board,
@@ -9,17 +10,19 @@ void Renderer::drawBoard(const Board& board,
     int offsetY,
     bool showShips) const noexcept
 {
+    // Базовая форма клетки
     sf::RectangleShape cellShape(sf::Vector2f(CELL_SIZE - 2, CELL_SIZE - 2));
     const auto& cells = board.cells();
 
     for (int y = 0; y < BOARD_SIZE; ++y) {
         for (int x = 0; x < BOARD_SIZE; ++x) {
 
+            // Позиция клетки на экране
             float px = float(offsetX + x * CELL_SIZE + 1);
             float py = float(offsetY + y * CELL_SIZE + 1);
-
             cellShape.setPosition(px, py);
 
+            // Определяем цвет клетки по её состоянию
             CellState st = cells[y][x];
             sf::Color color = Style::CellDefault;
 
@@ -35,6 +38,7 @@ void Renderer::drawBoard(const Board& board,
             cellShape.setFillColor(color);
             window_.draw(cellShape);
 
+            // Рисуем крестик на потопленном корабле
             if (st == CellState::Sunk) {
                 sf::Vertex line1[] = {
                     sf::Vertex(sf::Vector2f(px, py), Style::SunkLine),
@@ -60,12 +64,16 @@ void Renderer::draw(const Board& playerBoard,
     int aiBoardX,
     int boardsY) const noexcept
 {
+    // Очищаем экран
     window_.clear(Style::Background);
 
-    drawBoard(playerBoard, playerBoardX, boardsY, true);
-    drawBoard(aiBoard, aiBoardX, boardsY, false);
+    // Рисуем оба поля
+    drawBoard(playerBoard, playerBoardX, boardsY, true);   // показываем корабли игрока
+    drawBoard(aiBoard, aiBoardX, boardsY, false);          // скрываем корабли AI
 
+    // Текст статуса (ход, победа и т.п.)
     window_.draw(statusText);
 
+    // Выводим кадр
     window_.display();
 }

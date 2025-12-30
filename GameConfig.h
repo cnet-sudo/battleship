@@ -3,9 +3,9 @@
 #include <cstddef>
 #include <array>
 
-/**
- * @file GameConfig.h
- * @brief Глобальные параметры игры «Морской бой».
+/*
+ GameConfig.h
+ Глобальные параметры игры «Морской бой».
  */
 
  // Размер игрового поля

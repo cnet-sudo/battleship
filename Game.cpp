@@ -8,9 +8,9 @@ Game::Game()
 {
     window_.setFramerateLimit(60);
 
-    // -----------------------------
+   
     // Шрифт
-    // -----------------------------
+    
     if (!font_.loadFromFile("arial.ttf")) {
         std::cerr << "Не удалось загрузить arial.ttf\n";
     }
@@ -18,14 +18,13 @@ Game::Game()
     statusText_.setFont(font_);
     statusText_.setCharacterSize(24);
     statusText_.setFillColor(sf::Color::White);
-
-    // Курсоры
+    //Курсор 
     cursorArrow_.loadFromSystem(sf::Cursor::Arrow);
     cursorCrosshair_.loadFromSystem(sf::Cursor::Cross);
 
-    // -----------------------------
+    
     // Центрирование полей
-    // -----------------------------
+    
     int boardPixelSize = BOARD_SIZE * CELL_SIZE;
     int gap = 80;
 
@@ -36,15 +35,15 @@ Game::Game()
     aiBoardX_ = startX + boardPixelSize + gap;
     boardsY_ = 40;
 
-    // -----------------------------
+   
     // Расстановка кораблей
-    // -----------------------------
+    
     playerBoard_.randomPlaceFleet(rng_);
     aiBoard_.randomPlaceFleet(rng_);
 
-    // -----------------------------
+    
     // Инициализация массива выстрелов ИИ
-    // -----------------------------
+    
     for (int y = 0; y < BOARD_SIZE; ++y)
         for (int x = 0; x < BOARD_SIZE; ++x)
             aiShots_[y][x] = false;
@@ -52,9 +51,6 @@ Game::Game()
     updateStatusText();
 }
 
-// ------------------------------------------------------------
-// Обновление текста статуса
-// ------------------------------------------------------------
 void Game::updateStatusText() {
     float remaining = turnTimeLimit_ - turnClock_.getElapsedTime().asSeconds();
     if (remaining < 0) remaining = 0;
@@ -74,9 +70,6 @@ void Game::updateStatusText() {
     statusText_.setPosition(200.f, WINDOW_HEIGHT - 100.f);
 }
 
-// ------------------------------------------------------------
-// Обработка клика игрока
-// ------------------------------------------------------------
 void Game::handlePlayerClick(int mouseX, int mouseY) {
     if (gameOver_) {
         window_.close();
@@ -100,10 +93,12 @@ void Game::handlePlayerClick(int mouseX, int mouseY) {
         switch (result) {
 
         case ShotResult::Invalid:
-            return; // клик вне поля
+            // Клик вне поля — игнорируем
+            return;
 
         case ShotResult::Repeat:
-            return; // уже стреляли — ход не тратится
+            // Уже стреляли — не передаём ход
+            return;
 
         case ShotResult::Miss:
             playerTurn_ = false;
@@ -111,7 +106,7 @@ void Game::handlePlayerClick(int mouseX, int mouseY) {
             break;
 
         case ShotResult::Hit:
-            // игрок стреляет снова
+            // Игрок стреляет снова
             break;
 
         case ShotResult::Sunk:
@@ -119,7 +114,7 @@ void Game::handlePlayerClick(int mouseX, int mouseY) {
                 gameOver_ = true;
                 playerWon_ = true;
             }
-            // игрок стреляет снова
+            // Игрок стреляет снова
             break;
         }
 
@@ -127,9 +122,7 @@ void Game::handlePlayerClick(int mouseX, int mouseY) {
     }
 }
 
-// ------------------------------------------------------------
-// Обработка событий SFML
-// ------------------------------------------------------------
+
 void Game::handleEvents() {
     sf::Event event{};
     while (window_.pollEvent(event)) {
@@ -145,16 +138,13 @@ void Game::handleEvents() {
     }
 }
 
-// ------------------------------------------------------------
-// Главный игровой цикл
-// ------------------------------------------------------------
 void Game::run() {
     while (window_.isOpen()) {
         handleEvents();
 
-        // -----------------------------
+        
         // Ход компьютера по таймеру
-        // -----------------------------
+      
         if (!gameOver_ && !playerTurn_) {
             float remaining = turnTimeLimit_ - turnClock_.getElapsedTime().asSeconds();
 
@@ -168,13 +158,13 @@ void Game::run() {
 
             updateStatusText();
         }
-
-        // -----------------------------
-        // Курсор
-        // -----------------------------
+        //Курсор
+        // Проверяем позицию мыши
         sf::Vector2i mp = sf::Mouse::getPosition(window_);
+
         int boardPixelSize = BOARD_SIZE * CELL_SIZE;
 
+        // Если мышь над полем противника — ставим прицел
         if (mp.x >= aiBoardX_ && mp.x < aiBoardX_ + boardPixelSize &&
             mp.y >= boardsY_ && mp.y < boardsY_ + boardPixelSize &&
             playerTurn_ && !gameOver_)
@@ -185,9 +175,9 @@ void Game::run() {
             window_.setMouseCursor(cursorArrow_);
         }
 
-        // -----------------------------
+        
         // Рендер
-        // -----------------------------
+       
         renderer_.draw(
             playerBoard_,
             aiBoard_,

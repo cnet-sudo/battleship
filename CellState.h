@@ -10,7 +10,7 @@ enum class CellState : unsigned char {
     Sunk
 };
 
-// Удобные строковые представления (C++20)
+
 [[nodiscard]]
 constexpr std::string_view toString(CellState state) noexcept {
     switch (state) {

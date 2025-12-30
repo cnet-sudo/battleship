@@ -4,18 +4,18 @@
 #include <random>
 #include <array>
 #include <iostream>
-#include <ctime>        // для std::time
+#include <ctime>        
 
 #include "Board.h"
 #include "AIController.h"
 #include "Renderer.h"
 #include "GameConfig.h"
 
-/**
- * Game
- *
- * Управляет жизненным циклом игры:
- * инициализация, обработка событий, логика и отрисовка.
+/*
+ Game
+ 
+ Управляет жизненным циклом игры:
+ инициализация, обработка событий, логика и отрисовка.
  */
 class Game {
 public:

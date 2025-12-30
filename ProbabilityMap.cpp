@@ -1,8 +1,7 @@
 #include "ProbabilityMap.h"
 
-// ------------------------------------------------------------
 // Проверка возможности разместить корабль
-// ------------------------------------------------------------
+
 bool ProbabilityMap::canPlace(
     const Board& board,
     const ShotsGrid& shots,
@@ -31,17 +30,15 @@ bool ProbabilityMap::canPlace(
         if (cell == CellState::Sunk)
             return false;
 
-        // Ship НЕ запрещаем!
-        // ИИ не знает, где корабли игрока.
-        // Hit допустим — это значит, что корабль проходит через эту клетку.
+        
     }
 
     return true;
 }
 
-// ------------------------------------------------------------
+
 // Пересчёт карты вероятностей
-// ------------------------------------------------------------
+
 void ProbabilityMap::compute(
     const Board& board,
     const ShotsGrid& shots

@@ -1,8 +1,8 @@
 #pragma once
 
-/**
- * @enum ShotResult
- * @brief Результат выстрела по клетке.
+/*
+ ShotResult
+ Результат выстрела по клетке.
  */
 enum class ShotResult : unsigned char {
     Invalid,    ///< координаты вне поля

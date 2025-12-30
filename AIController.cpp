@@ -2,17 +2,15 @@
 #include <algorithm>
 #include <iostream>
 
-// ------------------------------------------------------------
-//  Конструктор
-// ------------------------------------------------------------
+
 AIController::AIController(std::mt19937& rng) noexcept
     : rng_(rng)
 {
 }
 
-// ------------------------------------------------------------
+
 //  Помечаем все клетки вокруг затопленного корабля как недоступные
-// ------------------------------------------------------------
+
 void AIController::markForbiddenAroundHit(
     int x, int y,
     const Board& board,
@@ -36,9 +34,8 @@ void AIController::markForbiddenAroundHit(
     }
 }
 
-// ------------------------------------------------------------
+
 //  Добавление соседних клеток (только 4 направления)
-// ------------------------------------------------------------
 void AIController::addNeighborsSmart(
     int x, int y,
     const Board& board,
@@ -73,9 +70,9 @@ void AIController::addNeighborsSmart(
     }
 }
 
-// ------------------------------------------------------------
+
 //  Сортировка попаданий вдоль направления
-// ------------------------------------------------------------
+
 void AIController::sortHits() noexcept
 {
     if (!state_.hasDirection || state_.hitCells.size() < 2)
@@ -89,9 +86,8 @@ void AIController::sortHits() noexcept
     }
 }
 
-// ------------------------------------------------------------
 //  Сброс направления и пересборка целей
-// ------------------------------------------------------------
+
 void AIController::resetDirectionAndRebuildTargets(
     const Board& board,
     const ShotsGrid& shots
@@ -105,9 +101,7 @@ void AIController::resetDirectionAndRebuildTargets(
         addNeighborsSmart(h.x, h.y, board, shots);
 }
 
-// ------------------------------------------------------------
 //  Обработка попадания
-// ------------------------------------------------------------
 void AIController::handleHit(
     int x, int y,
     Board& board,
@@ -201,9 +195,7 @@ void AIController::handleHit(
     }
 }
 
-// ------------------------------------------------------------
 //  Основной ход ИИ
-// ------------------------------------------------------------
 bool AIController::takeTurn(
     Board& playerBoard,
     ShotsGrid& shots,

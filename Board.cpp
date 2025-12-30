@@ -1,24 +1,18 @@
 ﻿#include "Board.h"
 #include <iostream>
 
-// ------------------------------------------------------------
-//  Конструктор
-// ------------------------------------------------------------
+
 Board::Board() {
     reset();
 }
 
-// ------------------------------------------------------------
 //  Проверка выхода за границы
-// ------------------------------------------------------------
 bool Board::isInside(int x, int y) const noexcept {
     return x >= 0 && x < static_cast<int>(BOARD_SIZE) &&
         y >= 0 && y < static_cast<int>(BOARD_SIZE);
 }
 
-// ------------------------------------------------------------
 //  Очистка поля
-// ------------------------------------------------------------
 void Board::reset() noexcept {
     for (auto& row : cells_) {
         row.fill(CellState::Empty);
@@ -27,10 +21,8 @@ void Board::reset() noexcept {
     shipsCellsHit_ = 0;
 }
 
-// ------------------------------------------------------------
 //  Проверка возможности поставить корабль
 //  Правило: корабли не соприкасаются ни сторонами, ни углами
-// ------------------------------------------------------------
 bool Board::canPlaceShip(int x, int y, int length, bool horizontal) const noexcept {
     const int dx = horizontal ? 1 : 0;
     const int dy = horizontal ? 0 : 1;
@@ -59,9 +51,7 @@ bool Board::canPlaceShip(int x, int y, int length, bool horizontal) const noexce
     return true;
 }
 
-// ------------------------------------------------------------
 //  Установка корабля (без дополнительной проверки)
-// ------------------------------------------------------------
 void Board::placeShip(int x, int y, int length, bool horizontal) noexcept {
     const int dx = horizontal ? 1 : 0;
     const int dy = horizontal ? 0 : 1;
@@ -75,9 +65,7 @@ void Board::placeShip(int x, int y, int length, bool horizontal) noexcept {
     }
 }
 
-// ------------------------------------------------------------
 //  Случайная расстановка флота
-// ------------------------------------------------------------
 void Board::randomPlaceFleet(std::mt19937& rng) {
     reset();
 
@@ -104,10 +92,8 @@ void Board::randomPlaceFleet(std::mt19937& rng) {
     }
 }
 
-// ------------------------------------------------------------
 //  Проверка, затоплен ли корабль, к которому относится (x, y)
 //  Предполагается, что (x, y) - Hit либо только что Hit.
-// ------------------------------------------------------------
 bool Board::isShipSunk(int x, int y) const noexcept {
     constexpr std::array<std::pair<int, int>, 4> dirs{
         std::pair{ 1, 0 },
@@ -136,10 +122,8 @@ bool Board::isShipSunk(int x, int y) const noexcept {
     return true;
 }
 
-// ------------------------------------------------------------
 //  Пометить корабль как затопленный (все его палубы)
 //  Предполагается, что isShipSunk(x, y) == true.
-// ------------------------------------------------------------
 void Board::markShipSunk(int x, int y) noexcept {
     constexpr std::array<std::pair<int, int>, 4> dirs{
         std::pair{ 1, 0 },
@@ -162,9 +146,7 @@ void Board::markShipSunk(int x, int y) noexcept {
     }
 }
 
-// ------------------------------------------------------------
 //  Выстрел по клетке
-// ------------------------------------------------------------
 ShotResult Board::shoot(int x, int y) noexcept {
     if (!isInside(x, y))
         return ShotResult::Invalid;
@@ -193,9 +175,7 @@ ShotResult Board::shoot(int x, int y) noexcept {
     return ShotResult::Miss;
 }
 
-// ------------------------------------------------------------
 //  Проверка уничтожения всего флота
-// ------------------------------------------------------------
 bool Board::allShipsDestroyed() const noexcept {
     return shipsCellsTotal_ > 0 &&
         shipsCellsHit_ == shipsCellsTotal_;
