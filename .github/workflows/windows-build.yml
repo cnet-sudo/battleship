@@ -1,0 +1,30 @@
+name: Windows Build (CMake + SFML 2.6.0)
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Install SFML 2.6.0
+      run: |
+        git clone https://github.com/SFML/SFML.git --branch 2.6.0 --depth 1
+        cmake -S SFML -B SFML/build -A x64 -DCMAKE_BUILD_TYPE=Release
+        cmake --build SFML/build --config Release
+        cmake --install SFML/build --config Release --prefix "C:/SFML"
+
+    - name: Configure CMake
+      run: |
+        cmake -S . -B build -A x64 -DCMAKE_PREFIX_PATH="C:/SFML"
+
+    - name: Build
+      run: |
+        cmake --build build --config Release
