@@ -273,7 +273,7 @@ bool AIController::takeTurn(
         break;
 
     case ShotResult::Miss:
-        // ВАЖНО: если мы охотились — НЕ теряем корабль
+        // если мы охотились — НЕ теряем корабль
         if (!state_.hitCells.empty()) {
             resetDirectionAndRebuildTargets(playerBoard, shots);
         }
