@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Файлы ресурсов">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="include">
+      <UniqueIdentifier>{d6ccb8d0-894b-40bc-97dc-991e683111bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src">
+      <UniqueIdentifier>{fc0351c4-2cf1-4429-9c48-d2df213cd4ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="assets">
+      <UniqueIdentifier>{a1bd6271-c2d8-4715-b2d0-9d1e547f368b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="battleship.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Board.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="AIController.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="ProbabilityMap.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Board.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="CellState.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="AIState.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="AIController.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="GameConfig.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="ProbabilityMap.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="ShotsGrid.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="StyleConfig.h">
+      <Filter>include</Filter>
+    </ClInclude>
+    <ClInclude Include="ShotResult.h">
+      <Filter>include</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="arial.ttf">
+      <Filter>assets</Filter>
+    </Font>
+  </ItemGroup>
+</Project>
