@@ -5,8 +5,15 @@ project(BattleshipGame LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-# Ищем все .cpp файлы в корне
-file(GLOB_RECURSE SOURCES "${CMAKE_SOURCE_DIR}/*.cpp")
+# Явно перечисляем исходники (лучший способ)
+set(SOURCES
+    AIController.cpp
+    Board.cpp
+    Game.cpp
+    ProbabilityMap.cpp
+    Renderer.cpp
+    battleship.cpp
+)
 
 # Создаём исполняемый файл
 add_executable(${PROJECT_NAME} ${SOURCES})
@@ -15,11 +22,11 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 find_package(SFML 2.6 REQUIRED COMPONENTS system window graphics)
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-system sfml-window sfml-graphics)
 
-# Копируем ВСЕ ресурсы из корня (кроме .cpp/.h/.cmake)
+# Копируем ресурсы (все файлы в корне)
 file(GLOB RESOURCE_FILES
-    "${CMAKE_SOURCE_DIR}/*.ttf"
     "${CMAKE_SOURCE_DIR}/*.png"
     "${CMAKE_SOURCE_DIR}/*.jpg"
+    "${CMAKE_SOURCE_DIR}/*.ttf"
     "${CMAKE_SOURCE_DIR}/*.wav"
     "${CMAKE_SOURCE_DIR}/*.json"
 )
@@ -31,3 +38,4 @@ foreach(RES ${RESOURCE_FILES})
             $<TARGET_FILE_DIR:${PROJECT_NAME}>
     )
 endforeach()
+
