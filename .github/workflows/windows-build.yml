@@ -31,8 +31,7 @@ jobs:
         cmake --build build --config Release
 
     - name: Upload EXE artifact
-  uses: actions/upload-artifact@v4
-  with:
-    name: BattleshipGame
-    path: build/Release/*.exe
-
+      uses: actions/upload-artifact@v4
+      with:
+        name: BattleshipGame
+        path: build/Release/*.exe
