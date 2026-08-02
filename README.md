@@ -1,5 +1,7 @@
 # Морской бой
 
+**Русский** | [English](README_EN.md)
+
 ![C++](https://img.shields.io/badge/C%2B%2B-20-00599C?logo=cplusplus)
 ![SFML](https://img.shields.io/badge/SFML-2.6.x-8CC445)
 ![Platform](https://img.shields.io/badge/platform-Windows-0078D4?logo=windows)
